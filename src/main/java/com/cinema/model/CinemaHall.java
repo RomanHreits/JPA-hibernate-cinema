@@ -11,17 +11,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(of = {"id", "title", "description"})
-@EqualsAndHashCode(of = {"id", "title", "description"})
-@Entity
-@Table(name = "movie")
-public class Movie {
+@ToString(of = {"id", "capacity", "description"})
+@EqualsAndHashCode(of = {"id", "capacity", "description"})
+@Table(name = "cinema_hall")
+public class CinemaHall {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
+    private int capacity;
     private String description;
 }
