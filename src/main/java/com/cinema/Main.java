@@ -1,19 +1,23 @@
 package com.cinema;
 
+import com.cinema.exceptions.AuthenticationException;
 import com.cinema.lib.Injector;
 import com.cinema.model.CinemaHall;
 import com.cinema.model.Movie;
 import com.cinema.model.MovieSession;
+import com.cinema.security.AuthenticationService;
 import com.cinema.service.CinemaHallService;
 import com.cinema.service.MovieService;
 import com.cinema.service.MovieSessionService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class Main {
     private static Injector injector = Injector.getInstance("com.cinema");
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AuthenticationException {
         Movie fastAndFurious = new Movie();
         Movie theLordOfRings = new Movie();
         Movie matrix = new Movie();
@@ -103,5 +107,12 @@ public class Main {
         System.out.println("----><----");
         sessionService.findAvailableSessions(2L, LocalDate.now()
                 .plusDays(1L)).forEach(System.out::println);
+        //--------------------------------------------------------------------
+        AuthenticationService authenticationService = (AuthenticationService) injector
+                .getInstance(AuthenticationService.class);
+        authenticationService.register("roman@mail.ru", "roman");
+        log.info("Login user :" + authenticationService.login("roman@mail.ru", "roman"));
+        log.info("Login user :" + authenticationService.login("roman@mail.ru", "roman"));
+
     }
 }
