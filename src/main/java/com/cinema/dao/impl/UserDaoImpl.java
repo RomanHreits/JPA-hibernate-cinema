@@ -28,6 +28,10 @@ public class UserDaoImpl implements UserDao {
             }
             throw new DataProcessingException("Can't insert to DB user: "
                     + user.toString(), e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 

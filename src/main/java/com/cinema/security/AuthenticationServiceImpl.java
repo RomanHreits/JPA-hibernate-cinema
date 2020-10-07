@@ -23,7 +23,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 return userDB;
             }
         }
-        throw new AuthenticationException("Incorrect userName or password!");
+        throw new AuthenticationException("Incorrect userEmail or password!");
     }
 
     @Override
