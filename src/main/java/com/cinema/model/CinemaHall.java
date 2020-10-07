@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "movie")
-public class Movie {
+@Table(name = "cinema_hall")
+public class CinemaHall {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
+    private int capacity;
     private String description;
 }
