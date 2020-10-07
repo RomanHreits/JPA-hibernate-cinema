@@ -26,7 +26,8 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             query.setParameter("endDay", date.atTime(LocalTime.MAX));
             return query.getResultList();
         } catch (Exception e) {
-            throw new DataProcessingException("Can't find available sessions!", e);
+            throw new DataProcessingException("Can't find available sessions with movieId: "
+                    + movieId + " and date " + date.toString(), e);
         }
     }
 
@@ -43,7 +44,8 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't add MovieSession to DB", e);
+            throw new DataProcessingException("Can't add to DB MovieSession: "
+                    + movieSession.toString(), e);
         } finally {
             if (hibernateSession != null) {
                 hibernateSession.close();

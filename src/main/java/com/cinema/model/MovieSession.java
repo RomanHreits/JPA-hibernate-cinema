@@ -8,17 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@ToString(of = {"id", "movie", "cinemaHall", "showTime"})
-@EqualsAndHashCode(of = {"id", "movie", "cinemaHall", "showTime"})
 @Entity
 @Table(name = "movie_session")
 public class MovieSession {
