@@ -43,8 +43,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                     + "left join fetch sc.user"
                     + " where sc.user.id = :id", ShoppingCart.class);
             query.setParameter("id", user.getId());
-            ShoppingCart cart = query.uniqueResult();
-            return cart;
+            return query.uniqueResult();
         }
     }
 
