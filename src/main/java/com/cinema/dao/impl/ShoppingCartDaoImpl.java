@@ -27,7 +27,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                 transaction.rollback();
             }
             throw new DataProcessingException("Can't insert to DB ShoppingCart: "
-                    + shoppingCart.toString(), e);
+                    + shoppingCart, e);
         } finally {
             if (session != null) {
                 session.close();
@@ -41,8 +41,8 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
             Query<ShoppingCart> query = session.createQuery("from ShoppingCart sc "
                     + "left join fetch sc.tickets "
                     + "join fetch sc.user"
-                    + " where sc.user.id = :id", ShoppingCart.class);
-            query.setParameter("id", user.getId());
+                    + " where sc.user = :user", ShoppingCart.class);
+            query.setParameter("user", user);
             return query.uniqueResult();
         }
     }
@@ -61,7 +61,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                 transaction.rollback();
             }
             throw new DataProcessingException("Can't update ShoppingCart: "
-                    + shoppingCart.toString(), e);
+                    + shoppingCart, e);
         } finally {
             if (session != null) {
                 session.close();

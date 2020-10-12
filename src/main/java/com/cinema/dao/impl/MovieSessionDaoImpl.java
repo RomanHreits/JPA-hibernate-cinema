@@ -45,7 +45,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
                 transaction.rollback();
             }
             throw new DataProcessingException("Can't add to DB MovieSession: "
-                    + movieSession.toString(), e);
+                    + movieSession, e);
         } finally {
             if (hibernateSession != null) {
                 hibernateSession.close();

@@ -131,14 +131,15 @@ public class Main {
         cartService.addSession(matrixRed, roman);
         cartService.addSession(lordOfRingsBlue, pavlo);
         cartService.addSession(lordOfRingsBlue, pavlo);
-
         //-----------------------------------------------------------------------------------
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
         List<Ticket> romanTickets = cartService.getByUser(roman).getTickets();
-        List<Ticket> pavloTickets = cartService.getByUser(pavlo).getTickets();
+        log.info("Shopping cart: " + cartService.getByUser(roman));
         orderService.completeOrder(romanTickets, roman);
+        log.info("Shopping cart: " + cartService.getByUser(roman));
+        List<Ticket> pavloTickets = cartService.getByUser(pavlo).getTickets();
         orderService.completeOrder(pavloTickets, pavlo);
-        orderService.getOrderHistory(roman);
-        System.out.println(cartService.getByUser(roman).toString());
+        orderService.getOrderHistory(roman).forEach(System.out::println);
+        log.info("cartUser :" + cartService.getByUser(roman));
     }
 }

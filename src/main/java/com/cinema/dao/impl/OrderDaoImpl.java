@@ -20,14 +20,14 @@ public class OrderDaoImpl implements OrderDao {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.persist(order);
+            session.save(order);
             transaction.commit();
             return order;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't insert to DB Order: " + order.toString(), e);
+            throw new DataProcessingException("Can't insert to DB Order: " + order, e);
         } finally {
             if (session != null) {
                 session.close();
@@ -38,9 +38,9 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<Order> getOrderHistory(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Order> query = session.createQuery("from Order o join fetch o.tickets "
-                    + "where o.user.id = :id", Order.class);
-            query.setParameter("id", user.getId());
+            Query<Order> query = session.createQuery("select distinct o from Order o "
+                    + "join fetch o.tickets where o.user = :user", Order.class);
+            query.setParameter("user", user);
             return query.getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Can't get all User's orders with userId: "
