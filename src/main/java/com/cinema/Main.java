@@ -5,10 +5,14 @@ import com.cinema.lib.Injector;
 import com.cinema.model.CinemaHall;
 import com.cinema.model.Movie;
 import com.cinema.model.MovieSession;
+import com.cinema.model.ShoppingCart;
+import com.cinema.model.User;
 import com.cinema.security.AuthenticationService;
 import com.cinema.service.CinemaHallService;
 import com.cinema.service.MovieService;
 import com.cinema.service.MovieSessionService;
+import com.cinema.service.ShoppingCartService;
+import com.cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.extern.log4j.Log4j2;
@@ -108,11 +112,27 @@ public class Main {
         sessionService.findAvailableSessions(2L, LocalDate.now()
                 .plusDays(1L)).forEach(System.out::println);
         //--------------------------------------------------------------------
+
         AuthenticationService authenticationService = (AuthenticationService) injector
                 .getInstance(AuthenticationService.class);
         authenticationService.register("roman@mail.ru", "roman");
         log.info("Login user :" + authenticationService.login("roman@mail.ru", "roman"));
-        log.info("Login user :" + authenticationService.login("roman@mail.ru", "roman"));
 
+        authenticationService.register("pavlo@gmail.com", "pavlo");
+
+        ShoppingCartService cartService = (ShoppingCartService) injector
+                .getInstance(ShoppingCartService.class);
+        UserService userService = (UserService) injector.getInstance(UserService.class);
+        User roman = userService.findByEmail("roman@mail.ru").get();
+        User pavlo = userService.findByEmail("pavlo@gmail.com").get();
+        cartService.addSession(matrixRed, roman);
+        cartService.addSession(matrixRed, roman);
+        cartService.addSession(lordOfRingsBlue, pavlo);
+        cartService.addSession(lordOfRingsBlue, pavlo);
+        log.info("Roman's shoppingCart :" + cartService.getByUser(roman).toString());
+        log.info("Pavlo's shoppingCart :" + cartService.getByUser(pavlo).toString());
+        ShoppingCart romamSC = cartService.getByUser(roman);
+        cartService.clear(romamSC);
+        log.info("Roman's shoppingCart :" + cartService.getByUser(roman));
     }
 }
