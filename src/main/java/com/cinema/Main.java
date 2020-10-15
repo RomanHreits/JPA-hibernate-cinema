@@ -14,10 +14,10 @@ import com.cinema.service.MovieSessionService;
 import com.cinema.service.OrderService;
 import com.cinema.service.ShoppingCartService;
 import com.cinema.service.UserService;
-import org.jboss.logging.Logger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.jboss.logging.Logger;
 
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class);
