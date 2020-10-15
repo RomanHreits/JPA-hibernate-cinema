@@ -17,10 +17,11 @@ import com.cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.jboss.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Main {
-    private static final Logger logger = Logger.getLogger(Main.class);
+    private static final Logger logger = LogManager.getLogger(Main.class);
     private static Injector injector = Injector.getInstance("com.cinema");
 
     public static void main(String[] args) throws AuthenticationException {
@@ -118,8 +119,11 @@ public class Main {
         AuthenticationService authenticationService = (AuthenticationService) injector
                 .getInstance(AuthenticationService.class);
         authenticationService.register("roman@mail.ru", "roman");
-        logger.info("Login user :" + authenticationService.login("roman@mail.ru", "roman"));
-
+        try {
+            authenticationService.login("roman@mail.ru", "roman");
+        } catch (AuthenticationException e) {
+            logger.error("Login error. Incorrect userEmail or password!", e);
+        }
         authenticationService.register("pavlo@gmail.com", "pavlo");
 
         ShoppingCartService cartService = (ShoppingCartService) injector
@@ -136,7 +140,7 @@ public class Main {
         List<Ticket> romanTickets = cartService.getByUser(roman).getTickets();
         logger.info("Shopping cart: " + cartService.getByUser(roman));
         logger.info("Roman's order: " + orderService.completeOrder(romanTickets, roman));
-        logger.warn("Shopping cart: " + cartService.getByUser(roman));
+        logger.info("Shopping cart: " + cartService.getByUser(roman));
         List<Ticket> pavloTickets = cartService.getByUser(pavlo).getTickets();
         logger.info("Pavlo's order: " + orderService.completeOrder(pavloTickets, pavlo));
         logger.info("Roman's order history: " + orderService.getOrderHistory(roman));
