@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn">
-    <Properties>
-        <Property name="basePath">"D:/studing_project/hibernate-cinema"</Property>
-    </Properties>
-
     <Appenders>
-        <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout   pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false"  pattern="%style{%d{ISO8601}}{black} %style{[%t]}{blue} %style{%-5level:}{yellow} %style{%msg%n%throwable}{green}"/>
         </Console>
+        <File name="File" fileName="logs/logging.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </File>
     </Appenders>
     <Loggers>
-        <Logger name="hibernate-cinema" level="info" additivity="true">
-            <appender-ref ref="fileLogger" level="info" />
-        </Logger>
-        <Root level="info" additivity="false">
-            <appender-ref ref="console" />
+        <Root level="all">
+            <AppenderRef ref="Console" level="info" />
+            <AppenderRef ref="File" level="warn" />
         </Root>
     </Loggers>
 </Configuration>

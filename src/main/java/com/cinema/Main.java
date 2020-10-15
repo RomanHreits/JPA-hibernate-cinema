@@ -14,13 +14,13 @@ import com.cinema.service.MovieSessionService;
 import com.cinema.service.OrderService;
 import com.cinema.service.ShoppingCartService;
 import com.cinema.service.UserService;
+import org.jboss.logging.Logger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import lombok.extern.log4j.Log4j2;
 
-@Log4j2
 public class Main {
+    private static final Logger logger = Logger.getLogger(Main.class);
     private static Injector injector = Injector.getInstance("com.cinema");
 
     public static void main(String[] args) throws AuthenticationException {
@@ -118,7 +118,7 @@ public class Main {
         AuthenticationService authenticationService = (AuthenticationService) injector
                 .getInstance(AuthenticationService.class);
         authenticationService.register("roman@mail.ru", "roman");
-        log.info("Login user :" + authenticationService.login("roman@mail.ru", "roman"));
+        logger.info("Login user :" + authenticationService.login("roman@mail.ru", "roman"));
 
         authenticationService.register("pavlo@gmail.com", "pavlo");
 
@@ -134,12 +134,12 @@ public class Main {
         //-----------------------------------------------------------------------------------
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
         List<Ticket> romanTickets = cartService.getByUser(roman).getTickets();
-        log.info("Shopping cart: " + cartService.getByUser(roman));
-        orderService.completeOrder(romanTickets, roman);
-        log.info("Shopping cart: " + cartService.getByUser(roman));
+        logger.info("Shopping cart: " + cartService.getByUser(roman));
+        logger.info("Roman's order: " + orderService.completeOrder(romanTickets, roman));
+        logger.warn("Shopping cart: " + cartService.getByUser(roman));
         List<Ticket> pavloTickets = cartService.getByUser(pavlo).getTickets();
-        orderService.completeOrder(pavloTickets, pavlo);
-        orderService.getOrderHistory(roman).forEach(System.out::println);
-        log.info("cartUser :" + cartService.getByUser(roman));
+        logger.info("Pavlo's order: " + orderService.completeOrder(pavloTickets, pavlo));
+        logger.info("Roman's order history: " + orderService.getOrderHistory(roman));
+        logger.info("cartUser :" + cartService.getByUser(roman));
     }
 }
