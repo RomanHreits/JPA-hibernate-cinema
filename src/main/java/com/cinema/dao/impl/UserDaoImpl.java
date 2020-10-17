@@ -6,12 +6,16 @@ import com.cinema.lib.Dao;
 import com.cinema.model.User;
 import com.cinema.util.HibernateUtil;
 import java.util.Optional;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 @Dao
 public class UserDaoImpl implements UserDao {
+    private static final Logger logger = LogManager.getLogger(UserDaoImpl.class);
+
     @Override
     public User add(User user) {
         Session session = null;
@@ -21,6 +25,7 @@ public class UserDaoImpl implements UserDao {
             transaction = session.beginTransaction();
             session.persist(user);
             transaction.commit();
+            logger.info("Object User was added to DB! " + user);
             return user;
         } catch (Exception e) {
             if (transaction != null) {
