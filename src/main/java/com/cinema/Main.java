@@ -122,7 +122,7 @@ public class Main {
         try {
             authenticationService.login("roman@mail.ru", "roman");
         } catch (AuthenticationException e) {
-            logger.error("Login error. Incorrect userEmail or password!", e);
+            logger.warn("Login error. Incorrect userEmail or password!", e);
         }
         authenticationService.register("pavlo@gmail.com", "pavlo");
 
