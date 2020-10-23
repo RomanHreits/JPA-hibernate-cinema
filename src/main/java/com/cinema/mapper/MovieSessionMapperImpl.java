@@ -22,7 +22,7 @@ public class MovieSessionMapperImpl implements MovieSessionMapper {
 
     @Override
     public MovieSession mapFromReqDtoToEntity(MovieSessionRequestDto dto) {
-        CinemaHall cinemaHall = cinemaHallService.getById(dto.getCinemaHallId());
+        CinemaHall cinemaHall = cinemaHallService.get(dto.getCinemaHallId());
         Movie movie = movieService.get(dto.getMovieId());
         MovieSession movieSession = new MovieSession();
         movieSession.setMovie(movie);
