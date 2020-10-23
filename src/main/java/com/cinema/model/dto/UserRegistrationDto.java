@@ -1,6 +1,6 @@
 package com.cinema.model.dto;
 
-public class UserAuthenticationDto {
+public class UserRegistrationDto {
 
     private String email;
     private String password;

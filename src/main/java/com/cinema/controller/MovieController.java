@@ -1,8 +1,8 @@
 package com.cinema.controller;
 
 import com.cinema.model.Movie;
-import com.cinema.model.dto.MovieDtoRequest;
-import com.cinema.model.dto.MovieDtoResponse;
+import com.cinema.model.dto.MovieRequestDto;
+import com.cinema.model.dto.MovieResponseDto;
 import com.cinema.service.MovieService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,16 +25,16 @@ public class MovieController {
     }
 
     @PostMapping
-    public void create(@RequestBody MovieDtoRequest movieDto) {
+    public void create(@RequestBody MovieRequestDto movieDto) {
         Movie movie = modelMapper.map(movieDto, Movie.class);
         movieService.add(movie);
     }
 
     @GetMapping
-    public List<MovieDtoResponse> getAll() {
+    public List<MovieResponseDto> getAll() {
         return movieService.getAll()
                 .stream()
-                .map(movie -> modelMapper.map(movie, MovieDtoResponse.class))
+                .map(movie -> modelMapper.map(movie, MovieResponseDto.class))
                 .collect(Collectors.toList());
     }
 }

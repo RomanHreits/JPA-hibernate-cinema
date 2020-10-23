@@ -1,6 +1,6 @@
 package com.cinema.model.dto;
 
-public class MovieDtoResponse {
+public class MovieResponseDto {
     private Long id;
     private String title;
     private String description;
