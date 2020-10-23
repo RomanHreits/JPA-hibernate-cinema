@@ -5,13 +5,11 @@ import com.cinema.model.MovieSession;
 import com.cinema.service.MovieSessionService;
 import java.time.LocalDate;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MovieSessionServiceImpl implements MovieSessionService {
-    @Autowired
-    private MovieSessionDao sessionDao;
+    private final MovieSessionDao sessionDao;
 
     public MovieSessionServiceImpl(MovieSessionDao sessionDao) {
         this.sessionDao = sessionDao;
