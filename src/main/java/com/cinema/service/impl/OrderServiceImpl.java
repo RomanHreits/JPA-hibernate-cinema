@@ -2,12 +2,9 @@ package com.cinema.service.impl;
 
 import com.cinema.dao.OrderDao;
 import com.cinema.model.Order;
-import com.cinema.model.Ticket;
 import com.cinema.model.User;
 import com.cinema.service.OrderService;
 import com.cinema.service.ShoppingCartService;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +19,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order completeOrder(List<Ticket> tickets, User user) {
-        Order order = new Order();
-        order.setUser(user);
-        order.setTickets(new ArrayList<>(tickets));
-        order.setOrderDate(LocalDateTime.now());
-        cartService.clear(cartService.getByUser(user));
+    public Order completeOrder(Order order) {
+        cartService.clear(cartService.getByUser(order.getUser()));
         return orderDao.create(order);
     }
 

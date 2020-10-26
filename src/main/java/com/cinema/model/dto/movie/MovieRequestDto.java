@@ -1,4 +1,4 @@
-package com.cinema.model.dto;
+package com.cinema.model.dto.movie;
 
 public class MovieRequestDto {
     private String title;

@@ -1,8 +1,8 @@
 package com.cinema.controller;
 
 import com.cinema.model.Movie;
-import com.cinema.model.dto.MovieRequestDto;
-import com.cinema.model.dto.MovieResponseDto;
+import com.cinema.model.dto.movie.MovieRequestDto;
+import com.cinema.model.dto.movie.MovieResponseDto;
 import com.cinema.service.MovieService;
 import java.util.List;
 import java.util.stream.Collectors;
