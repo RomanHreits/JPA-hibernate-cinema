@@ -1,4 +1,4 @@
-package com.cinema.model.dto;
+package com.cinema.model.dto.user;
 
 public class UserRegistrationDto {
     private String email;

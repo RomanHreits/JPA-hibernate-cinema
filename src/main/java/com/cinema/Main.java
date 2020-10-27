@@ -137,10 +137,8 @@ public class Main {
         OrderService orderService = context.getBean(OrderService.class);
         List<Ticket> romanTickets = cartService.getByUser(roman).getTickets();
         logger.info("Shopping cart: " + cartService.getByUser(roman));
-        logger.info("Roman's order: " + orderService.completeOrder(romanTickets, roman));
         logger.info("Shopping cart: " + cartService.getByUser(roman));
         List<Ticket> pavloTickets = cartService.getByUser(pavlo).getTickets();
-        logger.info("Pavlo's order: " + orderService.completeOrder(pavloTickets, pavlo));
         logger.info("Roman's order history: " + orderService.getOrderHistory(roman));
         logger.info("cartUser :" + cartService.getByUser(roman));
     }

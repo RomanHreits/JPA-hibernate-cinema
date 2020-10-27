@@ -1,4 +1,4 @@
-package com.cinema.model.dto;
+package com.cinema.model.dto.session;
 
 public class MovieSessionResponseDto {
     private Long movieSessionId;
