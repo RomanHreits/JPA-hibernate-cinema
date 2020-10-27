@@ -6,7 +6,7 @@ import java.util.List;
 
 public class OrderResponseDto {
     private Long id;
-    private LocalDateTime localDateTime;
+    private LocalDateTime orderCreationTime;
     private Long userId;
     private List<TicketResponseDto> tickets;
 
@@ -18,12 +18,12 @@ public class OrderResponseDto {
         this.id = id;
     }
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
+    public LocalDateTime getOrderCreationTime() {
+        return orderCreationTime;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+    public void setOrderCreationTime(LocalDateTime orderCreationTime) {
+        this.orderCreationTime = orderCreationTime;
     }
 
     public Long getUserId() {

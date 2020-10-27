@@ -15,7 +15,6 @@ public class ShoppingCartMapper {
 
     public ShoppingCartResponseDto fromEntityToDto(ShoppingCart cart) {
         ShoppingCartResponseDto cartResponseDto = new ShoppingCartResponseDto();
-        cartResponseDto.setShoppingCartId(cart.getId());
         cartResponseDto.setUserId(cart.getUser().getId());
         cartResponseDto.setTickets(cart.getTickets()
                 .stream()
