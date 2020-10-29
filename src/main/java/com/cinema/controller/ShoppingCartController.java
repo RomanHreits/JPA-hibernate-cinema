@@ -1,11 +1,12 @@
 package com.cinema.controller;
 
 import com.cinema.mapper.ShoppingCartMapper;
-import com.cinema.model.User;
 import com.cinema.model.dto.ShoppingCartResponseDto;
 import com.cinema.service.MovieSessionService;
 import com.cinema.service.ShoppingCartService;
 import com.cinema.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,14 +32,18 @@ public class ShoppingCartController {
 
     @PostMapping("/movie-sessions")
     public void addMovieSession(@RequestParam Long movieSessionId,
-                                @RequestParam Long userId) {
+                                Authentication authentication) {
+        UserDetails principal = (UserDetails) authentication.getPrincipal();
         cartService.addSession(sessionService.get(movieSessionId),
-                userService.get(userId));
+                userService.findByEmail(principal.getUsername()).get());
     }
 
     @GetMapping("/by-user")
-    public ShoppingCartResponseDto getByUserId(@RequestParam(name = "id") Long userId) {
-        User user = userService.get(userId);
-        return mapper.fromEntityToDto(cartService.getByUser(user));
+    public ShoppingCartResponseDto getByUserId(Authentication authentication) {
+        UserDetails principal = (UserDetails) authentication.getPrincipal();
+        return mapper.fromEntityToDto(cartService
+                .getByUser(userService
+                        .findByEmail(principal.getUsername())
+                        .get()));
     }
 }
