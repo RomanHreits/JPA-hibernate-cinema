@@ -34,22 +34,19 @@ public class OrderController {
 
     @PostMapping("/complete")
     public void create(Authentication authentication) {
-        User user = getUser(authentication);
+        UserDetails principal = (UserDetails) authentication.getPrincipal();
+        User user = userService.findByEmail(principal.getUsername()).get();
         ShoppingCart userCart = shoppingCartService.getByUser(user);
         orderService.completeOrder(userCart.getTickets(), user);
     }
 
     @GetMapping
     public List<OrderResponseDto> getOrdersHistory(Authentication authentication) {
-        User user = getUser(authentication);
+        UserDetails principal = (UserDetails) authentication.getPrincipal();
+        User user = userService.findByEmail(principal.getUsername()).get();
         return orderService.getOrderHistory(user)
                 .stream()
                 .map(mapper::fromEntityToDto)
                 .collect(Collectors.toList());
-    }
-
-    private User getUser(Authentication authentication) {
-        UserDetails principal = (UserDetails) authentication.getPrincipal();
-        return userService.findByEmail(principal.getUsername()).get();
     }
 }

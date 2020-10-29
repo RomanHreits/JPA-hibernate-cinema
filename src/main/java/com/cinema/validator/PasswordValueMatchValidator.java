@@ -23,11 +23,6 @@ public class PasswordValueMatchValidator implements
                 .getPropertyValue(field);
         Object fieldMatchValue = new BeanWrapperImpl(value)
                 .getPropertyValue(fieldMatch);
-
-        if (fieldValue != null) {
-            return fieldValue.equals(fieldMatchValue);
-        } else {
-            return fieldMatchValue == null;
-        }
+        return fieldValue != null ? fieldValue.equals(fieldMatchValue) : fieldMatchValue == null;
     }
 }
