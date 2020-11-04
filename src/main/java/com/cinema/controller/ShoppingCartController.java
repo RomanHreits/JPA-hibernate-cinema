@@ -1,6 +1,7 @@
 package com.cinema.controller;
 
 import com.cinema.mapper.ShoppingCartMapper;
+import com.cinema.model.User;
 import com.cinema.model.dto.ShoppingCartResponseDto;
 import com.cinema.service.MovieSessionService;
 import com.cinema.service.ShoppingCartService;
@@ -34,8 +35,9 @@ public class ShoppingCartController {
     public void addMovieSession(@RequestParam Long movieSessionId,
                                 Authentication authentication) {
         UserDetails principal = (UserDetails) authentication.getPrincipal();
+        User user = userService.findByEmail(principal.getUsername()).get();
         cartService.addSession(sessionService.get(movieSessionId),
-                userService.findByEmail(principal.getUsername()).get());
+                user);
     }
 
     @GetMapping("/by-user")
