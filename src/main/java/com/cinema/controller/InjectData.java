@@ -6,16 +6,21 @@ import com.cinema.service.RoleService;
 import com.cinema.service.UserService;
 import java.util.Set;
 import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class InjectData {
     private final UserService userService;
     private final RoleService roleService;
+    private final PasswordEncoder encoder;
 
-    public InjectData(UserService userService, RoleService roleService) {
+    public InjectData(UserService userService, RoleService roleService, PasswordEncoder encoder) {
         this.userService = userService;
         this.roleService = roleService;
+        this.encoder = encoder;
     }
 
     @PostConstruct
@@ -31,6 +36,6 @@ public class InjectData {
         user.setRoleName(Role.RoleType.USER);
         roleService.add(user);
         Role role = roleService.getRoleByName("ADMIN");
-        userService.add(new User("roman@in.ua", "roman", Set.of(role)));
+        userService.add(new User("roman@in.ua", encoder.encode("roman"), Set.of(role)));
     }
 }

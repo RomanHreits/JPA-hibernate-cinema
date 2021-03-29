@@ -7,7 +7,7 @@ of course. KISS, DRY, SOLID are the main principles.
 
 - Java 11
 - Spring MVC
-- Spring Security
+- Spring Security(JWT authorization)
 - Hibernate
 - MySQL
 - Tomcat Server
@@ -21,7 +21,10 @@ that roles can be combined. So if a user has two roles - they can perform both s
 actions.
 
 Admin user is created automatically while starting. email: roman@in.ua, password: roman
-
+When you call controller`s method authenticate, you will get JWT token which later you will able use 
+with key word Bearer in Authorization header in postman to send other requests.
+  
+#### Before calling methods review SecurityConfig class and notice to which url USER and ADMIN can send requests
 To launch the project, download the project onto your machine and make sure you have 
 MySQL Workbench on it. Then you need to create schema cinema on your RDBMS.
 
