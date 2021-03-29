@@ -53,9 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/movie-sessions").hasRole("ADMIN")
 
                 .anyRequest().authenticated();
-//                .and()
-//                .formLogin().loginPage("/login")
-//                .permitAll()
     }
 
     @Override

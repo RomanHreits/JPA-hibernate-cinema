@@ -3,9 +3,8 @@ package com.cinema.service.impl;
 import com.cinema.dao.UserDao;
 import com.cinema.model.User;
 import com.cinema.service.UserService;
-import org.springframework.stereotype.Service;
-
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {

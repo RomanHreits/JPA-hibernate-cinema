@@ -6,8 +6,6 @@ import com.cinema.service.RoleService;
 import com.cinema.service.UserService;
 import java.util.Set;
 import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
